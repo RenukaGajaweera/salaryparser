@@ -11,8 +11,28 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
 
     private static final Logger log = LoggerFactory.getLogger(PersonItemProcessor.class);
 
+    /**
+     * process method will override the parent method. it will transform input type to output type.
+     * for this job the input class and the output classes are the same.
+     * filtering is done on the transformed object
+     * */
     @Override
     public Person process(final Person person) throws ProcessingException {
+
+        final Person transformedPerson = transformPerson(person);
+        if (filterPerson(transformedPerson)) {
+            throw new ProcessingException();
+        }
+        return transformedPerson;
+    }
+
+    private boolean filterPerson(Person transformedPerson) {
+       return transformedPerson.getDepartmentId() < 1001 || transformedPerson.getDepartmentId() > 1003 ? true : false;
+    }
+
+
+    private Person transformPerson(final Person person) {
+        final Person transformedPerson = new Person();
         final Integer employeeId = person.getEmployeeId();
         final String firstName = person.getFirstName();
         final String lastName = person.getLastName();
@@ -20,7 +40,6 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
         final Date salaryDate = person.getSalaryDate();
         final Float salary = person.getSalary();
 
-        final Person transformedPerson = new Person();
         transformedPerson.setEmployeeId(employeeId);
         transformedPerson.setFirstName(firstName);
         transformedPerson.setLastName(lastName);
@@ -28,10 +47,9 @@ public class PersonItemProcessor implements ItemProcessor<Person, Person> {
         transformedPerson.setSalaryDate(salaryDate);
         transformedPerson.setSalary(salary);
 
-        if (transformedPerson.getDepartmentId() < 1001 || person.getDepartmentId() > 1003) {
-            throw new ProcessingException();
-        }
         return transformedPerson;
     }
+
+
 
 }

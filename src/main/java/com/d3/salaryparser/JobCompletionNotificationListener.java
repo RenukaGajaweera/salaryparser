@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+/**
+ * JobCompletionNotificationListener class will listen on each step function and on the job completion state.
+ * JobCompletionNotificationListener class will gather job statistics and notifications and print at the end of job execution
+ */
 @Component
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport implements SkipListener<Person, Person> {
 
@@ -59,9 +63,12 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
                     }
             ).forEach(person -> log.info(person.getFirstName() + " " + person.getLastName() + ": " + person.getSalary() + " EUR"));
         }
-        if (jobExecution.getStatus() == BatchStatus.FAILED) {
+        else if (jobExecution.getStatus() == BatchStatus.FAILED) {
             log.info("Job execution failed");
+        } else {
+            log.info("Job execution status unknown");
         }
+
         log.info("******************************************************");
         log.info("**************Ending Job d3 Salary Parser**************");
         log.info("******************************************************");
