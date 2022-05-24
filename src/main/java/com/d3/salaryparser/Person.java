@@ -77,8 +77,8 @@ public class Person {
                 .append(getFirstName()).append(DELEMETER)
                 .append(getLastName()).append(DELEMETER)
                 .append(getDepartmentId()).append(DELEMETER)
-				.append(getSalaryDateToString()).append(DELEMETER)
-				.append(getSalary());
+                .append(getSalaryDateToString()).append(DELEMETER)
+                .append(getSalary());
         return sb.toString();
     }
 
