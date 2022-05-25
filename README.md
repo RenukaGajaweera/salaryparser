@@ -1,6 +1,8 @@
 # salaryparser
+- Spring boot application using spring batch processing to read a csv file consisting of employee salary information and write only the validated entries to in-memory hsql database. The application will print the average salary of employees in db table along with the number of invalid entries and a list of invalid entries. **Assumption:** the average salary of employees is calculated using the number of entries per employee in DB table.
+- Java version 17
 
-- Spring boot application using spring batch processing to read a csv file consisting of employee salary information and write to in-memory hsql database
+
 ## Build Instructions
 - open command terminal
 - *cd* into the salaryparser folder location
